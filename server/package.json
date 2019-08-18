@@ -15,5 +15,10 @@
     "mysql": "^2.17.1",
     "mysql2": "^1.6.5",
     "sequelize": "^5.15.0"
-  }
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
