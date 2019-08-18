@@ -1,22 +1,9 @@
 const User = require('../../models').User;
+const jwt = require('jsonwebtoken');
+const axios = require('axios');
+const crypto = require('crypto');
 
-exports.signup = async(req, res)=>{
-    let {email, name, pw, age} = req.body;
-    let salt = Math.round((new Date().valueOf() * Math.random())) + "";
-    let hashPW = crypto.createHash("sha512").update(pw + salt).digest("hex");
-
-    User.create({
-        email: email,
-        name: name,
-        pw: hashPW,
-        age: age,
-        salt: salt
-    })
-    .then(result => {res.redirect("/")})
-    .catch(err=>console.log(err))
-}
-
-exports.checkValidation = (req, res) => {
+exports._checkEmail = (req, res) => {
     const email = req.body.email;
     User.count({
         where : {email : email}
@@ -30,6 +17,28 @@ exports.checkValidation = (req, res) => {
             success: false
         });
     });
+}
+
+exports._signUp = (req, res)=>{
+    
+    const { email, pw, name, age } = req.body;
+    const salt = Math.round((new Date().valueOf()*Math.random()))+"";
+    const hashPw = crypto.createHash("sha512").update(pw+salt).digest("hex");
+
+    User.create({
+        email: email,
+        pw : hashPw,
+        name : name,
+        age: age,
+        salt: salt
+    })
+    .then(result=>{
+        console.log(result)
+        // result.redirect('/')//console.log(result);
+    })
+    .catch(err => {
+        console.log(err);
+    })
 }
 
 exports.login  = (req, res, next) => {
@@ -90,12 +99,4 @@ exports.login  = (req, res, next) => {
             message : err.message
         })
     })
-}
-
-exports.check = (req, res, next) => {
-    res.json({
-        message: 'vaild token',
-        info: req.token,
-        success: true
-    });
 }

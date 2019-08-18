@@ -23,6 +23,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'content-type, x-access-token');
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
@@ -44,7 +51,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(8080, function(){
-  console.log("info",'Server is running at port : ' + 8080);
+  console.log("info",'Server is running at port : ' + 3000);
 });
 
 module.exports = app;

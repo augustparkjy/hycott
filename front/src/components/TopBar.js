@@ -27,19 +27,19 @@ class TopBar extends Component {
   }
   
   _click = () =>{
-    this.props.isSignIn ? this.SignIn() : this._modalOn()
+    this.props.isSignIn ? this.SignIn() : this._modalToggle()
   }
 
-  SignIn = () =>{
+  _signIn = () =>{
     console.log("sign in")
   }
 
-  _modalOn = () =>{
+  _modalToggle = () =>{
     this.setState({
-      modalOn: true
+      modalOn: true //!this.state.modalOn
     })
   }
-
+  
   render(){
     return(
       <div>
@@ -57,13 +57,10 @@ class TopBar extends Component {
           </AppBar>
         </div>
         <div>
-          {
-            this.state.modalOn ? <div><SignBox/></div> : null
-          }
+          {this.state.modalOn && <div><SignBox /></div>}
+          {/* {this._modalToggle()} */}
         </div>
-      </div>
-
-      
+      </div>      
     //   <div className="top-container">
     //   <AppBar position="static">
     //     <Toolbar>
