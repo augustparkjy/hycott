@@ -54,9 +54,10 @@ class HideAppBar extends Component {
         this.props.setModalOepn(false);
     }
     _openSomething = () =>{
-      if(this.props.user.email===""){
+      if(this.props.user.email==="")
         this.props.setModalOpen(true);
-      }
+      else
+        this.props.setModalOpen(false);
     }
 
     render(){

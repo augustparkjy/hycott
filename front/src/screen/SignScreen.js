@@ -1,6 +1,6 @@
 import React from 'react';
-import SignInBox from '../components/SignIn';
-import SignUpBox from '../components/SignUp';
+import SignInBox from '../components/SignInBox';
+import SignUpBox from '../components/SignUpBox';
 import Button from '@material-ui/core/Button';
 
 class SignScreen extends React.Component {

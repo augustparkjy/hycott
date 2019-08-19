@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 router.post('/signin', controller._signIn)
 router.post('/signup', controller._signUp)
 router.post('/check/email', controller._checkEmail)
-router.use('/check', middleController)
+router.get('/check', middleContoller)
 router.get('/check', controller._check)
 
 module.exports = router;

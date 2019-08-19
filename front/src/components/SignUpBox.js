@@ -3,6 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import config from '../config/config';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import {setModalOpen} from '../actions';
 
 class SignUpBox extends React.Component {
 
@@ -95,6 +97,9 @@ class SignUpBox extends React.Component {
         .then(()=>{
           alert("Done! Sign In Now!")
         })
+        .then(()=>{
+          this.props.setModalOpen(false);
+        })
         .catch(err => {
           alert("Server error");
         });
@@ -173,4 +178,17 @@ class SignUpBox extends React.Component {
       );
     }
   }
+
+  const mapDispatchProps = (dispatch) => {
+    return {
+      setModalOpen : (modalOpen) => { dispatch(setModalOpen(modalOpen)) }
+    }
+  }
+  
+  const mapStateToProps = (state) => {
+    return {
+        modalOpen : state.modalOpen
+    }
+  }
+SignUpBox = connect(mapStateToProps, mapDispatchProps)(SignUpBox); 
 export default SignUpBox;

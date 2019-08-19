@@ -3,6 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import config from '../config/config';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {setUser} from '../actions';
 
 class SignInBox extends React.Component {
 
@@ -40,7 +42,7 @@ class SignInBox extends React.Component {
                 token : res.data.token,
               }
               this.setState({ email : '',  pw: '' });
-              // this.props.setUser(user);
+              this.props.setUser(user);
               // this.props.setInitModalOpen(false);
               // localStorage.setItem('user', JSON.stringify(user));
         }}).catch(err => {
@@ -84,4 +86,16 @@ class SignInBox extends React.Component {
     }
   }
 
+const mapDispatchProps = (dispatch) => {
+  return {
+    setUser : (user) => {dispatch(setUser(user))}
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+      user : state.user
+  }
+}
+SignInBox = connect(mapStateToProps, mapDispatchProps)(SignInBox);
 export default SignInBox;
