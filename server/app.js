@@ -1,15 +1,17 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var sequelize = require('./models/index').sequelize;
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const morgan = require('morgan');
+const sequelize = require('./models/index').sequelize;
+const config = require('./config/jwt_config');
+const port = process.env.PORT || 3000;
 
-var indexRouter = require('./routes/index');
-var authRouter = require('./routes/auth');
-var userRouter = require('./routes/user');
+const indexRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
+const userRouter = require('./routes/user');
 
-var app = express();
+const app = express();
 
 sequelize.sync();
 
@@ -17,10 +19,11 @@ sequelize.sync();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(morgan('dev'));
+app.set('jwt-secret', config.secret)
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function (req, res, next) {
@@ -51,7 +54,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(8080, function(){
-  console.log("info",'Server is running at port : ' + 3000);
+  console.log(`Server is running on ${port}`);
 });
 
 module.exports = app;

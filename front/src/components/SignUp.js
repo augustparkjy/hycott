@@ -52,7 +52,7 @@ class SignUpBox extends React.Component {
             return;
           }
         this.setState({checkEmail : true});
-        await axios.post(`${config.serverURI}/user/check/email`, {
+        await axios.post(`${config.serverURI}/auth/check/email`, {
           email : this.state.user.email
         }).then(async(res) => {
           if(res.data.count === 0) await this.setState({isValidEmail : true});
@@ -77,9 +77,9 @@ class SignUpBox extends React.Component {
         e.preventDefault();
 
         //서버를 통해서 sequelize로 디비에 추가 & openstack 계정 생성
-        axios.post(`${config.serverURI}/user/signup`, this.state.user)
-        .then(async(res) => {
-          await this.setState({
+        axios.post(`${config.serverURI}/auth/signup`, this.state.user)
+        .then((res) => {
+          this.setState({
             user : {
               name: '',
               email: '',
@@ -89,11 +89,14 @@ class SignUpBox extends React.Component {
             pw2: '',
             isValidPw : true,
           });
-          alert("Done! Sign In Now!");
           // 부모가 props로 함수를 보내준 다음 자식은 이 함수를 사용해서 부모의 데이터 update
           // 자식컴포넌트가 부모컴포넌트로 직접적으로 변경이 불가능하기 떄문에 함수 사용
-        }).catch(err => {
-          alert("서버문제");
+        })
+        .then(()=>{
+          alert("Done! Sign In Now!")
+        })
+        .catch(err => {
+          alert("Server error");
         });
       }
   
@@ -111,35 +114,32 @@ class SignUpBox extends React.Component {
                         variant="outlined"
                         required={true}
                         onChange={this._inputChange('email')}
-                        className="login-input"
+                        className="signUp-input"
                         placeholder="email"/>
-                    <Button variant="contained" onClick={this._checkEmail} style={{margin: "0 0 0 16px", height: "100%"}}>Check</Button>
-                </div>
-                {
-                    this.state.checkEmail?
-                        this.state.isValidEmail?
-                            <p style={{color : "blue", fontSize: "14px"}}>OK</p>
-                            : <p style={{color : "red", fontSize: "14px"}}>Existing email</p>
-                        :<div/>
-                }
-
-                <div className="input-group" style={{margin: "0px", width: "100%"}}>
+                      <Button variant="contained" onClick={this._checkEmail} style={{margin: "0 0 0 16px", height: "100%"}}>Check</Button>
+                      {
+                          this.state.checkEmail?
+                              this.state.isValidEmail?
+                                  <p style={{color : "blue", fontSize: "14px"}}>OK</p>
+                                  : <p style={{color : "red", fontSize: "14px"}}>Existing email</p>
+                              :<div/>
+                      }                    
+                    <TextField 
+                      fullWidth={true}
+                      label="비밀번호"
+                      type="password"
+                      margin="normal"
+                      variant="outlined"
+                      className="signUp-input"
+                      placeholder="password"
+                      onChange={this._inputChange('pw')}/>
                     <TextField 
                         fullWidth={true}
                         label="비밀번호"
                         type="password"
                         margin="normal"
                         variant="outlined"
-                        className="login-input"
-                        placeholder="password"
-                        onChange={this._inputChange('pw')}/>
-                    <TextField 
-                        fullWidth={true}
-                        label="비밀번호"
-                        type="password"
-                        margin="normal"
-                        variant="outlined"
-                        className="login-input"
+                        className="signUp-input"
                         placeholder="password again"
                         onChange={this._inputChange('pw2')}/>
                     { this.state.pw2 !=='' ?
@@ -155,7 +155,7 @@ class SignUpBox extends React.Component {
                         margin="normal"
                         variant="outlined"
                         onChange={this._inputChange('name')}
-                        className="login-input"
+                        className="signUp-input"
                         placeholder="name"/>
                     <TextField
                         fullWidth={true}
@@ -164,59 +164,12 @@ class SignUpBox extends React.Component {
                         margin="normal"
                         variant="outlined"
                         onChange={this._inputChange('age')}
-                        className="login-input"
+                        className="signUp-input"
                         placeholder="age"/>
+                    <Button className="signUp-btn" onClick={this._submit.bind(this)}>Sign Up</Button>
                 </div>
-                <Button
-                    className="login-btn"
-                    onClick={this._submit.bind(this)}>Sign Up</Button>
             </form>
         </div>                
-        //   <div className="header">
-        //     Sign Up
-        //   </div>
-        //   <div className="box">
-  
-        //     <div className="input-group">
-        //       <label htmlFor="email">email</label>
-        //       <input
-        //         type="text"
-        //         name="email"
-        //         className="login-input"
-        //         placeholder="email"/>
-        //     </div>
-  
-        //     <div className="input-group">
-        //       <label htmlFor="username">username</label>
-        //       <input type="text" name="username" className="login-input" placeholder="username"/>
-        //     </div>
-  
-        //     <div className="input-group">
-        //       <label htmlFor="password">password</label>
-        //       <input
-        //         type="password"
-        //         name="password"
-        //         className="login-input"
-        //         placeholder="Password"/>
-        //     </div>
-
-        //     <div className="input-group">
-        //       <label htmlFor="password">password again</label>
-        //       <input
-        //         type="password"
-        //         name="password"
-        //         className="login-input"
-        //         placeholder="Password"/>
-        //     </div>
-
-        //     <button
-        //       type="button"
-        //       className="login-btn"
-        //       onClick={this
-        //       .submitRegister
-        //       .bind(this)}>Sign Up</button>
-        //   </div>
-        // </div>
       );
     }
   }
