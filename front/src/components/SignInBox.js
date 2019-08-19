@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import config from '../config/config';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {setUser} from '../actions';
+import {setUser, setModalOpen} from '../actions';
 
 class SignInBox extends React.Component {
 
@@ -28,7 +28,6 @@ class SignInBox extends React.Component {
         alert('Fill in all blank');
         return;
       }
-      // 로그인 성공시
         await axios.post(`${config.serverURI}/auth/signin`, {
         email : this.state.email,
         pw : this.state.pw 
@@ -43,9 +42,11 @@ class SignInBox extends React.Component {
               }
               this.setState({ email : '',  pw: '' });
               this.props.setUser(user);
-              // this.props.setInitModalOpen(false);
-              // localStorage.setItem('user', JSON.stringify(user));
-        }}).catch(err => {
+              this.props.setModalOpen(false);
+              localStorage.setItem('user', JSON.stringify(user));
+              alert('Welcome!')
+        }})
+        .catch(err => {
         if(err.response && err.response.status===401 && !err.response.data.success){
           alert('Cannot find that user');
           this.setState({ email: '', pw: '' });
@@ -88,13 +89,15 @@ class SignInBox extends React.Component {
 
 const mapDispatchProps = (dispatch) => {
   return {
-    setUser : (user) => {dispatch(setUser(user))}
+    setUser : (user) => {dispatch(setUser(user))},
+    setModalOpen : (openModal) => {dispatch(setModalOpen(openModal))}
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-      user : state.user
+      user : state.user,
+      modalOpen : state.modalOpen
   }
 }
 SignInBox = connect(mapStateToProps, mapDispatchProps)(SignInBox);

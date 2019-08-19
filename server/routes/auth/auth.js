@@ -47,6 +47,7 @@ exports._signIn  = (req, res) => {
     
     const { email, pw }  = req.body
     const secret = req.app.get('jwt-secret');
+
     const _checkInfo = (user) => {
         const salt = user.salt
         const hashPw = crypto.createHash("sha512").update(pw + salt).digest("hex")
