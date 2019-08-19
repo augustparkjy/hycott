@@ -49,7 +49,6 @@ class TopBar extends Component {
                 <IconButton edge="end" aria-label="account of current user" aria-haspopup="true"
                 onClick={this._click} color="inherit"
                 ><AccountCircle/>
-                
                 </IconButton>
               <SearchIcon /><InputBase placeholder="Search contents..."></InputBase>
               <Typography>HYCOTT</Typography>

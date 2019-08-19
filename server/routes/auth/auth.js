@@ -91,3 +91,10 @@ exports._signIn  = (req, res) => {
     .then(_checkResult)
     .catch(_catchError)
 }
+
+exports._check = (req, res) => {
+    res.json({
+        success: true,
+        info: req.decoded
+    })
+}
