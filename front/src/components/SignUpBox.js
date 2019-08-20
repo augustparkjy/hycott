@@ -5,6 +5,7 @@ import config from '../config/config';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {setModalOpen} from '../actions';
+import '../index.css'
 
 class SignUpBox extends React.Component {
 
@@ -121,7 +122,7 @@ class SignUpBox extends React.Component {
                         onChange={this._inputChange('email')}
                         className="signUp-input"
                         placeholder="email"/>
-                      <Button variant="contained" onClick={this._checkEmail} style={{margin: "0 0 0 16px", height: "100%"}}>Check</Button>
+                      <Button variant="contained" onClick={this._checkEmail} style={{margin: "0 0 0 3px", height: "100%"}}>Check</Button>
                       {
                           this.state.checkEmail?
                               this.state.isValidEmail?
@@ -171,7 +172,7 @@ class SignUpBox extends React.Component {
                         onChange={this._inputChange('age')}
                         className="signUp-input"
                         placeholder="age"/>
-                    <Button className="signUp-btn" onClick={this._submit.bind(this)}>Sign Up</Button>
+                    <Button variant="contained" style={{margin: "0 0 0 3px", height: "100%"}} className="signUp-btn" onClick={this._submit.bind(this)}>Sign Up</Button>
                 </div>
             </form>
         </div>                

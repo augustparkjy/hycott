@@ -5,6 +5,7 @@ import config from '../config/config';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {setUser, setModalOpen} from '../actions';
+import '../index.css';
 
 class SignInBox extends React.Component {
 
@@ -79,7 +80,7 @@ class SignInBox extends React.Component {
                         className="signIn-input"
                         placeholder="password"
                         onChange={this._inputChange('pw')}/>
-                    <Button className="signIn-btn" onClick={this._signIn.bind(this)}>Sign In</Button>
+                    <Button variant="contained" style={{margin: "0 0 0 3px", height: "100%"}} className="signIn-btn" onClick={this._signIn.bind(this)}>Sign In</Button>
                 </div>
             </form>
           </div>

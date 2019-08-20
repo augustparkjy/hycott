@@ -15,6 +15,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import '../index.css'
 
 function HideOnScroll(props) {
   const { children, window } = props;

@@ -4,32 +4,22 @@ import TopBar from '../components/HideAppBar';
 import SignBox from './SignScreen';
 import {connect} from 'react-redux';
 import {setModalOpen} from '../actions';
+import MovieContainer from '../components/MovieContainer';
 
 class MainScreen extends Component {
   state = {
-    isTokenOn: false,
-    // modalOn: false
+    isTokenOn: false
   }
-  // componentDidMount(){
-  //   console.log(this.props.modalOpen)
-  //   if(this.props.modalOpen===true)
-  //     this.setState({
-  //       modalOpen: true
-  //     })
-  // }
   render(){
     return (
       <div className="main">
-        {
-          this.props.modalOpen ? <div><SignBox/></div>
-          :<div>
+          {this.props.modalOpen ? (<SignBox/>):""} 
             <div className="top-container"><TopBar/></div>
               <div className="main-container">
+                <div><MovieContainer/></div>
                 <div className="side-container"></div>
                 <div className="contents-container"></div> {/*user={this.props.user}*/}
               </div>
-          </div>
-        }
       </div>
     );
   }
