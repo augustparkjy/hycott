@@ -1,37 +1,7 @@
 import React from "react";
 import axios from "axios";
-import PropTypes from "prop-types";
 import '../index.css'
-import {connect} from 'react-redux';
-
-function Movie({ year, title, summary, poster, genres }) {
-  return (
-    <div className="movie">
-      <img src={poster} alt={title} title={title} />
-      <div className="movie__data">
-        <h3 className="movie__title">{title}</h3>
-        <h5 className="movie__year">{year}</h5>
-        <ul className="movie__genres">
-          {genres.map((genre, index) => (
-            <li key={index} className="genres__genre">
-              {genre}
-            </li>
-          ))}
-        </ul>
-        <p className="movie__summary">{summary.slice(0, 100)}...</p>
-      </div>
-    </div>
-  );
-}
-
-Movie.propTypes = {
-  id: PropTypes.number.isRequired,
-  year: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  summary: PropTypes.string.isRequired,
-  poster: PropTypes.string.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired
-};
+import Movie from './Movie.js'
 
 class MovieContainer extends React.Component {
   state = {
@@ -45,9 +15,13 @@ class MovieContainer extends React.Component {
       }
     } = await axios.get(
       "https://yts-proxy.now.sh/list_movies.json?sort_by=rating"
-    );
-    this.setState({ movies, isLoading: false });
+    )
+    this.setState({movies, isLoading: false})
+    // .then(()=>{
+    //   this.setState({movies, isLoading: false})
+    // })
   };
+
   componentDidMount() {
     this.getMovies();
   }
@@ -62,7 +36,7 @@ class MovieContainer extends React.Component {
           </div>
         ) : (
           <div className="movies">
-            {movies.map(movie => (
+            {movies.map( movie => (
               <Movie
                 key={movie.id}
                 id={movie.id}
@@ -71,6 +45,7 @@ class MovieContainer extends React.Component {
                 summary={movie.summary}
                 poster={movie.medium_cover_image}
                 genres={movie.genres}
+                infohash={movie.torrents}
               />
             ))}
           </div>
@@ -79,11 +54,11 @@ class MovieContainer extends React.Component {
     );
   }
 }
+// const mapDispatchProps = (dispatch) => {
+//   return {
+//     setPlayContents : (playContents)=> {dispatch(setPlayContents(playContents))}
+//   }
+// }
+// MovieContainer = connect(mapDispatchProps)(MovieContainer);
 
-const mapStateToProps = (state) => {
-  return {
-      modalOpen : state.modalOpen
-  };
-}
-MovieContainer = connect(mapStateToProps)(MovieContainer);
 export default MovieContainer;
