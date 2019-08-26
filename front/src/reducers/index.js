@@ -1,4 +1,4 @@
-import { SET_USER, SET_MODAL_OPEN } from '../actions';
+import { SET_USER, SET_MODAL_OPEN, SET_PALY_CONTENTS } from '../actions';
 import { combineReducers } from 'redux';
 
 const userInitialState = {
@@ -10,6 +10,8 @@ const userInitialState = {
 }
 
 const modalOpenInitialState = false
+
+const playContentsInitialState = null
 
 const user = (state = userInitialState, action) =>{
     switch(action.type){
@@ -29,9 +31,18 @@ const modalOpen = (state = modalOpenInitialState, action) =>{
     }
 }
 
+const playContents = (state = playContentsInitialState, action) => {
+    switch(action.type){
+        case SET_PALY_CONTENTS:
+            return action.playContents;
+        default:
+            return state;
+    }
+}
 const hycottApp = combineReducers({
     user,
-    modalOpen
+    modalOpen,
+    playContents
 });
 
 export default hycottApp;

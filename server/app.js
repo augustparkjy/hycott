@@ -3,17 +3,23 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const sequelize = require('./models/index').sequelize;
+const sequelize = require('./models').sequelize;
 const config = require('./config/jwt_config');
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
 
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
-
+const serviceRouter = require('./routes/service')
 const app = express();
 
-sequelize.sync();
+sequelize.sync().then(()=>{
+  console.log("sync done")
+}).catch(()=>{
+  console.log("sync fail")
+});
+// set port
+app.set('port', process.env.PORT || 3000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,7 +42,7 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
-
+app.use('/service', serviceRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -54,7 +60,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(8080, function(){
-  console.log(`Server is running on ${port}`);
+  console.log(`Server is running on 3000`);
 });
 
 module.exports = app;

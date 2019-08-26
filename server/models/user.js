@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Users', {
-        // primary key를 의미, 유저의 번호
         email:{
             type: DataTypes.STRING,
             primaryKey: true,

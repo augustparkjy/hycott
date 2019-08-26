@@ -3,8 +3,10 @@ import '../App.css';
 import TopBar from '../components/HideAppBar';
 import SignBox from './SignScreen';
 import {connect} from 'react-redux';
-import {setModalOpen} from '../actions';
+import {setModalOpen, setPlayContents} from '../actions';
 import MovieContainer from '../components/MovieContainer';
+import PlayScreen from './PlayScreen';
+// import CheckPlayBox from '../compomnents/CheckPlayBox';
 
 class MainScreen extends Component {
   state = {
@@ -17,6 +19,7 @@ class MainScreen extends Component {
             <div className="top-container"><TopBar/></div>
               <div className="main-container">
                 <div><MovieContainer/></div>
+                {this.props.playContents ? (<PlayScreen infohash={this.props.playContents}/>) : ""}
                 <div className="side-container"></div>
                 <div className="contents-container"></div> {/*user={this.props.user}*/}
               </div>
@@ -27,13 +30,15 @@ class MainScreen extends Component {
 const mapStateToProps = (state) => {
   return {
       user: state.user,
-      modalOpen : state.modalOpen
+      modalOpen : state.modalOpen,
+      playContents : state.playContents
   };
 }
 
 const mapDispatchProps = (dispatch) => {
   return {
-    setModalOpen : (modalOpen) => { dispatch(setModalOpen(modalOpen)) }
+    setModalOpen : (modalOpen) => { dispatch(setModalOpen(modalOpen)) },
+    setPlayContents : (playContents) => { dispatch(setPlayContents(playContents))}
   }
 }
 
