@@ -13,7 +13,8 @@ class MainScreen extends Component {
   state = {
     isTokenOn: false
   }
-  render(){ 
+  render(){
+    // if(!this.props.playContents){ 
     return (
       <div className="main">
           {this.props.modalOpen ? (<SignBox/>):""} 
@@ -26,6 +27,12 @@ class MainScreen extends Component {
               </div>
       </div>
     );
+  // }
+    // else
+    // {
+    //   return (
+    //       <PlayScreen/>
+    //   )}
   }
 }
 const mapStateToProps = (state) => {

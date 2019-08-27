@@ -13,7 +13,7 @@ class PlayScreen extends Component {
     torrentName: "",
     torrentProgress: "",
     torrentFiles: [],
-    done: false
+    // done: false
   }
 
   // _play = () => {
@@ -51,7 +51,7 @@ class PlayScreen extends Component {
 
       // TODO Figure out a better way to render these files 
       this.state.torrentFiles.map((file, i) => {
-        file.appendTo('body');
+        file.appendTo('screen');
       })
 
     });
@@ -64,18 +64,18 @@ class PlayScreen extends Component {
 
   render() {
     const video = document.createElement('video');
-    // document.screen.appendChild(video)
+    document.body.appendChild(video)
     return (
-      <NewWindow>
-          <div>
-            <h1>{this.state.torrentName}</h1>
-            <p><b>Torrent Info Hash: </b>{this.state.torrentInfoHash}</p>
-            <p><b>Torrent Progress: </b>{this.state.torrentProgress}</p>
-            <p>{this.props.infoHash}</p>
-          </div>
-          <div>
-            {/* {this.state.done === true ? this._play : null} */}
-          </div>
+      <NewWindow id="screen">
+      <div>
+        <h1>{this.state.torrentName}</h1>
+        <p><b>Torrent Info Hash: </b>{this.state.torrentInfoHash}</p>
+        <p><b>Torrent Progress: </b>{this.state.torrentProgress}</p>
+        {/* <p>{this.props.infoHash}</p> */}
+      </div>
+           <video/>
+             {/* {this.state.done === true ? this._play : null} */}
+           {/* </video> */}
       </NewWindow>
     );
   }
