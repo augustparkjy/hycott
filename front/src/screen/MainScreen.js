@@ -6,13 +6,14 @@ import {connect} from 'react-redux';
 import {setModalOpen, setPlayContents} from '../actions';
 import MovieContainer from '../components/MovieContainer';
 import PlayScreen from './PlayScreen';
+import NewWindow from 'react-new-window'
 // import CheckPlayBox from '../compomnents/CheckPlayBox';
 
 class MainScreen extends Component {
   state = {
     isTokenOn: false
   }
-  render(){
+  render(){ 
     return (
       <div className="main">
           {this.props.modalOpen ? (<SignBox/>):""} 
