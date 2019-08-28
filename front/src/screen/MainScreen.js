@@ -6,33 +6,27 @@ import {connect} from 'react-redux';
 import {setModalOpen, setPlayContents} from '../actions';
 import MovieContainer from '../components/MovieContainer';
 import PlayScreen from './PlayScreen';
-import NewWindow from 'react-new-window'
-// import CheckPlayBox from '../compomnents/CheckPlayBox';
 
 class MainScreen extends Component {
+  
   state = {
-    isTokenOn: false
+    screenOn: true
   }
+
   render(){
-    // if(!this.props.playContents){ 
+    // console.log(this.props.playContents)
     return (
       <div className="main">
           {this.props.modalOpen ? (<SignBox/>):""} 
             <div className="top-container"><TopBar/></div>
               <div className="main-container">
                 <div><MovieContainer/></div>
-                {this.props.playContents ? (<PlayScreen infohash={this.props.playContents}/>) : ""}
+                {this.props.playContents ? (<PlayScreen infohash="88594aaacbde40ef3e2510c47374ec0aa396c08e&dn=bbb_sunflower_1080p_30fps_normal.mp4&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80%2Fannounce&ws=http%3A%2F%2Fdistribution.bbb3d.renderfarming.net%2Fvideo%2Fmp4%2Fbbb_sunflower_1080p_30fps_normal.mp4"/>) : ""}
                 <div className="side-container"></div>
                 <div className="contents-container"></div> {/*user={this.props.user}*/}
               </div>
       </div>
     );
-  // }
-    // else
-    // {
-    //   return (
-    //       <PlayScreen/>
-    //   )}
   }
 }
 const mapStateToProps = (state) => {
