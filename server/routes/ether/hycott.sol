@@ -32,9 +32,10 @@ contract AdminContent is Owned {
     
     // Content's structure
     struct contentinfo{
-        address Owner; // Content's Owner
+        address payable Owner; // Content's Owner
         uint Time; // Content's time registered
         uint Block; // Content's block registered
+        uint Ether;
     }
         
     // User's structure
@@ -61,20 +62,20 @@ contract AdminContent is Owned {
     }
 
     // Administrator register Copyright for Content
-    function RegisterCopyright(address _owner , string memory _hash) onlyadministrator public {
+    function RegisterCopyright(address payable _owner , string memory _hash, uint _Ether) onlyadministrator public {
         uint NOC = getNOC(_owner);
-        Content[_hash] = contentinfo(_owner,now,block.number);
+        Content[_hash] = contentinfo(_owner,now,block.number, _Ether);
         User[_owner].Content[NOC] = _hash;
         User[_owner].NOC += 1;
     }
     
     // Get content's owner
-    function getOwner (string memory _hash) view public returns(address){
+    function getOwner (string memory _hash) view public returns(address payable){
         return Content[_hash].Owner;
     }
     
     // Get content's time registered
-    function getTime (string memory _hash) view public returns(uint){
+    function getTimeC (string memory _hash) view public returns(uint){
         return Content[_hash].Time;
     }
     
@@ -83,13 +84,18 @@ contract AdminContent is Owned {
         return Content[_hash].Block;
     }
     
+    // Get content's block registered
+    function getEther (string memory _hash) view public returns(uint){
+        return Content[_hash].Ether;
+    }
+    
     // Get user's the number of content
     function getNOC (address _user) view public returns(uint){
         return User[_user].NOC;
     }
     
     // Get user's time registered
-    function getTime (address _user) view public returns(uint){
+    function getTimeU (address _user) view public returns(uint){
         return User[_user].Time;
     }
     
@@ -102,4 +108,25 @@ contract AdminContent is Owned {
     function getContent (address _user , uint index) view public returns(string memory){
         return User[_user].Content[index];
     }
+}
+
+contract Market is Owned {
+    
+    AdminContent admincontent = AdminContent(0x00696224ea99098a0b784edcd43d91649572dd1f00); // AdminContent Contract
+    
+    uint Revenue;
+    // user: assistant, Contr: Contribution _hash: file
+    function TransferReward (address payable user, uint Contr, string memory hash) onlyadministrator public payable{
+        
+        // Transfer 10% of total Revenue depending on contribution 
+        user.transfer(Contr*admincontent.getEther(hash)*1 ether/1000);
+    }
+    
+    // Content's owner take reword
+    // clientSide set msg.value
+    function Purchase (string memory hash) public payable {
+        admincontent.getOwner(hash).transfer(msg.value*7/10);
+        Revenue += msg.value*3/10;
+    }
+    
 }
