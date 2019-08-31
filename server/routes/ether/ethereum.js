@@ -10,13 +10,61 @@ const ContractAdminContent = admincontent.at(contract.AdminContent); // object o
 const _Administrator = web3.eth.accounts.privateKeyToAccount(admin.privatekey); // administrator's account 
 
 
-
 //REGISTER
 exports.registerUser = function(user){
-    ContractAdminContent.RegisterUser(user)
+
+    web3.eth.personal.unlockAccount("0xC57B92Cef010F624455d76D20A13ACf23Bcb3e22", "2600###pes", 600).then(console.log('Account unlocked!'));
+
+    let data = this.web3.eth.abi.encodeFunctionCall({
+        name: 'RegisterUser',
+        type: 'function',
+        inputs:[{
+            type:'address',
+            name:'_user'
+        }]
+    });
+    web3.eth._Administrator.signTransaction({
+        from: _Administrator.address,
+        gas: "21000",
+        to: '0xbb3458592f8aa1b98a6a4d38b5ee22e5ae6ebe14',
+        value: "",
+        data: data
+    }).then( tx => {
+        var Transaction = tx.rawTransaction;
+        web3.eth.sendSignedTransaction(Transaction).on('receipt',console.log);
+    });
+    
 }
-exports.registerCopyright = function(hash){
-    ContractAdminContent.RegisterCopyright(_Administrator,hash)
+exports.registerCopyright = function(_owner,hash,ether){
+
+    web3.eth.personal.unlockAccount("0xC57B92Cef010F624455d76D20A13ACf23Bcb3e22", "2600###pes", 600).then(console.log('Account unlocked!'));
+
+    let data = this.web3.eth.abi.encodeFunctionCall({
+        name: 'RegisterCopyright',
+        type: 'function',
+        inputs:[{
+            type: "address",
+            name: "_owner"
+        },
+        {
+            type: "string",
+            name: "_hash"
+        },
+        {
+            type: "uint256",
+            name: "_Ether"
+        }
+        ]
+    });
+    web3.eth._Administrator.signTransaction({
+        from: _Administrator.address,
+        gas: "21000",
+        to: '0xbb3458592f8aa1b98a6a4d38b5ee22e5ae6ebe14',
+        data: data
+    },admin.privatekey).then( tx => {
+        var Transaction = tx.rawTransaction;
+        web3.eth.sendSignedTransaction(Transaction).on('receipt',console.log);
+    });
 }
 
 //CONTENT

@@ -4,6 +4,25 @@ exports = AdminContent = [
 		"constant": true,
 		"inputs": [
 			{
+				"name": "_hash",
+				"type": "string"
+			}
+		],
+		"name": "getTimeC",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
 				"name": "_user",
 				"type": "address"
 			}
@@ -46,25 +65,6 @@ exports = AdminContent = [
 			{
 				"name": "",
 				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "_user",
-				"type": "address"
-			}
-		],
-		"name": "getTime",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -147,32 +147,14 @@ exports = AdminContent = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_owner",
-				"type": "address"
-			},
-			{
-				"name": "_hash",
-				"type": "string"
-			}
-		],
-		"name": "RegisterCopyright",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [
 			{
-				"name": "_hash",
-				"type": "string"
+				"name": "_user",
+				"type": "address"
 			}
 		],
-		"name": "getTime",
+		"name": "getTimeU",
 		"outputs": [
 			{
 				"name": "",
@@ -184,6 +166,28 @@ exports = AdminContent = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			},
+			{
+				"name": "_hash",
+				"type": "string"
+			},
+			{
+				"name": "_Ether",
+				"type": "uint256"
+			}
+		],
+		"name": "RegisterCopyright",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "administrator",
@@ -191,6 +195,25 @@ exports = AdminContent = [
 			{
 				"name": "",
 				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_hash",
+				"type": "string"
+			}
+		],
+		"name": "getEther",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"payable": false,
