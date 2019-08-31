@@ -23,7 +23,7 @@ class MainScreen extends Component {
                 <div><MovieContainer/></div>
                 {this.props.playContents ? (<PlayScreen/>) : ""}
                 <div className="side-container"></div>
-                <div className="contents-container"></div> {/*user={this.props.user}*/}
+                <div className="contents-container"></div>
               </div>
       </div>
     );

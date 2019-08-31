@@ -13,11 +13,7 @@ const userRouter = require('./routes/user');
 const serviceRouter = require('./routes/service')
 const app = express();
 
-sequelize.sync().then(()=>{
-  console.log("sync done")
-}).catch(()=>{
-  console.log("sync fail")
-});
+sequelize.sync();
 // set port
 app.set('port', process.env.PORT || 3000);
 
