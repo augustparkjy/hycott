@@ -69,27 +69,27 @@ exports.registerCopyright = function(_owner,hash,ether){
 
 //CONTENT
 exports.getOwner = function(hash){
-    ContractAdminContent.getOwner(hash)
+    return new Promise (ContractAdminContent.getOwner(hash));
 }
 exports.getTimeC = function(hash){
-    ContractAdminContent.getTime(hash)
+    return new Promise (ContractAdminContent.getTime(hash));
 }
 exports.getBlockC = function(hash){
-    ContractAdminContent.getBlock(hash)
+    return new Promise (ContractAdminContent.getBlock(hash));
 }
 
 //USER
 exports.getNOC = function(user){
-    ContractAdminContent.getNOC(user)
+    return new Promise(ContractAdminContent.getNOC(user));
 }
 exports.getTimeU = function(user){
-    ContractAdminContent.getTime(user)
+    return new Promise(ContractAdminContent.getTime(user));
 }
 exports.getBlockU = function(user){
-    ContractAdminContent.getBlock(user)
+    return new Promise(ContractAdminContent.getBlock(user));
 }
 exports.getContent = function(user){this.getNOC(user).then(NOC=>{
-    ContractAdminContent.getContent(user,NOC)
+    return new Promise(ContractAdminContent.getContent(user,NOC));
 })
 
 }
