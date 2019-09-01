@@ -44,15 +44,15 @@ exports.registerCopyright = function(_owner,hash,ether){
         type: 'function',
         inputs:[{
             type: "address",
-            name: "_owner"
+            name: _owner
         },
         {
             type: "string",
-            name: "_hash"
+            name: hash
         },
         {
             type: "uint256",
-            name: "_Ether"
+            name: ether
         }
         ]
     });
